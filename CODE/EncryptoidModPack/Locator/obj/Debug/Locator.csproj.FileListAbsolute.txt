@@ -1,0 +1,8 @@
+L:\Empyrion\Solutions\AdminModPack\Locator\bin\Debug\Locator.dll
+L:\Empyrion\Solutions\AdminModPack\Locator\bin\Debug\Locator.pdb
+L:\Empyrion\Solutions\AdminModPack\Locator\bin\Debug\Newtonsoft.Json.dll
+L:\Empyrion\Solutions\AdminModPack\Locator\bin\Debug\Newtonsoft.Json.xml
+L:\Empyrion\Solutions\AdminModPack\Locator\obj\Debug\Locator.csproj.CoreCompileInputs.cache
+L:\Empyrion\Solutions\AdminModPack\Locator\obj\Debug\Locator.csproj.CopyComplete
+L:\Empyrion\Solutions\AdminModPack\Locator\obj\Debug\Locator.dll
+L:\Empyrion\Solutions\AdminModPack\Locator\obj\Debug\Locator.pdb

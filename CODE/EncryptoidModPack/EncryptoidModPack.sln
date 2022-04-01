@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetherport", "Tetherport\Tetherport.csproj", "{1E963CD5-0368-4A02-8299-761760F23617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpyrionModdingFramework", "EmpyrionModdingFramework\EmpyrionModdingFramework.csproj", "{98064548-5ECA-4D2C-97CB-78224487B6E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModLocator", "ModLocator\ModLocator.csproj", "{50C5C3C8-45A9-4609-8435-6739F59602C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptoidModPack", "EncryptoidModPack\EncryptoidModPack.csproj", "{EE1C7608-9931-4F9B-AFEF-9E41AD29D95A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminTetherport", "AdminTetherport\AdminTetherport.csproj", "{B6ADE8A1-7C48-4BF4-A3A5-F21199F0F4DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retriever", "Retriever\Retriever.csproj", "{98B2260E-435E-4E41-9660-8457C2C1DD05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModPackHelp", "ModPackHelp\ModPackHelp.csproj", "{195669B0-B9F0-4B2B-9B02-AD96EDAB4D1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E963CD5-0368-4A02-8299-761760F23617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E963CD5-0368-4A02-8299-761760F23617}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E963CD5-0368-4A02-8299-761760F23617}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E963CD5-0368-4A02-8299-761760F23617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98064548-5ECA-4D2C-97CB-78224487B6E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98064548-5ECA-4D2C-97CB-78224487B6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98064548-5ECA-4D2C-97CB-78224487B6E6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{98064548-5ECA-4D2C-97CB-78224487B6E6}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{50C5C3C8-45A9-4609-8435-6739F59602C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C5C3C8-45A9-4609-8435-6739F59602C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C5C3C8-45A9-4609-8435-6739F59602C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C5C3C8-45A9-4609-8435-6739F59602C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1C7608-9931-4F9B-AFEF-9E41AD29D95A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1C7608-9931-4F9B-AFEF-9E41AD29D95A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1C7608-9931-4F9B-AFEF-9E41AD29D95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1C7608-9931-4F9B-AFEF-9E41AD29D95A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6ADE8A1-7C48-4BF4-A3A5-F21199F0F4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6ADE8A1-7C48-4BF4-A3A5-F21199F0F4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6ADE8A1-7C48-4BF4-A3A5-F21199F0F4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6ADE8A1-7C48-4BF4-A3A5-F21199F0F4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B2260E-435E-4E41-9660-8457C2C1DD05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B2260E-435E-4E41-9660-8457C2C1DD05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B2260E-435E-4E41-9660-8457C2C1DD05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B2260E-435E-4E41-9660-8457C2C1DD05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{195669B0-B9F0-4B2B-9B02-AD96EDAB4D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{195669B0-B9F0-4B2B-9B02-AD96EDAB4D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{195669B0-B9F0-4B2B-9B02-AD96EDAB4D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{195669B0-B9F0-4B2B-9B02-AD96EDAB4D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3722382-3D33-4AE5-83A9-18F60A1DA830}
+	EndGlobalSection
+EndGlobal
