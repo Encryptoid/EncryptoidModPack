@@ -32,7 +32,7 @@ namespace Retriever
 
         public async Task DialogRetrievePlayer(MessageData messageData)
         { 
-            await DialogRetrievePlayer(messageData.SenderEntityId, messageData.Text.Contains(RetrieveIssueCommand));
+            await DialogRetrievePlayer(messageData.SenderEntityId, !messageData.Text.Contains(RetrieveCommand));
         }
         
         private async Task DialogRetrievePlayer(int senderEntityId, bool isIssueCommand)
