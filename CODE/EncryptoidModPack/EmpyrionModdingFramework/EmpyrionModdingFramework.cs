@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-
-using Eleon.Modding;
+﻿using Eleon.Modding;
+using System;
 
 namespace EmpyrionModdingFramework
 {

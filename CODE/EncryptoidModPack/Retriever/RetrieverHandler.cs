@@ -20,6 +20,7 @@ namespace Retriever
 
         public const string ModName = "Retriever";
         public const string RetrieveCommand = "retrieve";
+        public const string RetrieveIssueCommand = "retrieve-issue";
         public const string ReturnCommand = "return";
 
         public RetrieverHandler(IDatabaseManager dbManager, EmpyrionModdingFrameworkBase modFramework, Action<string> logFunc)
@@ -31,10 +32,10 @@ namespace Retriever
 
         public async Task DialogRetrievePlayer(MessageData messageData)
         { 
-            await DialogRetrievePlayer(messageData.SenderEntityId);
+            await DialogRetrievePlayer(messageData.SenderEntityId, messageData.Text.Contains(RetrieveIssueCommand));
         }
         
-        private async Task DialogRetrievePlayer(int senderEntityId)
+        private async Task DialogRetrievePlayer(int senderEntityId, bool isIssueCommand)
         {
             var adminPlayer = await _modFramework.QueryPlayerInfo(senderEntityId);
             if (adminPlayer == null) return;
@@ -47,7 +48,29 @@ namespace Retriever
                 allPlayers.Add(await _modFramework.QueryPlayerInfo(playerId));
             }
 
-            _modFramework.ShowLinkedTextDialog(adminPlayer.entityId, RetrieverFormatter.FormatRetrieveMessage(allPlayers), "Retrieve Player!", RetrievePlayer);
+            if (isIssueCommand)
+            {
+                _modFramework.ShowLinkedTextDialog(adminPlayer.entityId,
+                    RetrieverFormatter.FormatRetrieveMessage(allPlayers), "Retrieve Player(Issue)!", RetrievePlayerIssue);
+            }
+            else
+            {
+                _modFramework.ShowLinkedTextDialog(adminPlayer.entityId,
+                    RetrieverFormatter.FormatRetrieveMessage(allPlayers), "Retrieve Player!", RetrievePlayer);
+            }
+        }
+
+        private async void RetrievePlayerIssue(int buttonIdx, string linkId, string inputContent, int playerId, int customValue)
+        {
+            if (string.IsNullOrWhiteSpace(linkId) || linkId == "-1")
+                return;
+
+            var targetPlayerId = int.Parse(linkId);
+            var targetPlayer = await _modFramework.QueryPlayerInfo(targetPlayerId);
+            var adminPlayer = await _modFramework.QueryPlayerInfo(playerId);
+
+            await _modFramework.TeleportPlayerToPlayer(targetPlayerId, adminPlayer.entityId);
+            await _modFramework.MessagePlayer(adminPlayer.entityId, $"Teleported player to your location. EntityId: {targetPlayerId}.", 5);
         }
 
         private async void RetrievePlayer(int buttonIdx, string linkId, string inputContent, int playerId, int customValue)
@@ -64,8 +87,9 @@ namespace Retriever
             await _modFramework.TeleportPlayerToPlayer(targetPlayerId, adminPlayer.entityId);
             await _modFramework.MessagePlayer(adminPlayer.entityId, $"Teleported player to your location. EntityId: {targetPlayerId}.", 5);
 
-            await DialogRetrievePlayer(adminPlayer.entityId);
+            await DialogRetrievePlayer(adminPlayer.entityId, false);
         }
+
 
         public async Task DialogReturnPlayer(MessageData messageData)
         {

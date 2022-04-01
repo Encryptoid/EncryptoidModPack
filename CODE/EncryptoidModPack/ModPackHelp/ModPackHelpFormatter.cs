@@ -46,6 +46,9 @@ namespace ModPackHelp
             uiString +=
                 "This command will launch a UI showing all online players. Selecting one of the players will teleport the player to your location and create a tether for them.\n\n";
 
+            uiString += $"!{RetrieverHandler.RetrieveIssueCommand}\n";
+            uiString += $"The same as !{RetrieverHandler.RetrieveCommand} but will not create a tether for the player. Useful for solving tickets where people are stuck.\n\n";
+
             uiString += $"!{RetrieverHandler.ReturnCommand}\n";
             uiString +=
                 "This command will launch a UI showing all existing Retriever tethers. Using the tether will clear it so a large list is not built up.\n\n";

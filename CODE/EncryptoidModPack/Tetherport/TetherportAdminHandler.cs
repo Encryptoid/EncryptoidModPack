@@ -107,9 +107,12 @@ namespace Tetherport
             var portalRecord = _dbManager.LoadRecords<LocationRecord>(PortalFileName)
                 .Where(e => string.Equals(e.Name, linkId)).ToList();
 
-            _modFramework.ShowLinkedTextDialog(playerId, TetherportFormatter.FormatLocationList(portalRecord, true,
-                    "Are you sure you want to delete this portal? Click on it again to delete it permanently."),
-                "Confirm delete", DeletePortalDialog);
+            if (portalRecord.Count != 0)
+            {
+                _modFramework.ShowLinkedTextDialog(playerId, TetherportFormatter.FormatLocationList(portalRecord, true,
+                        "Are you sure you want to delete this portal? Click on it again to delete it permanently."),
+                    "Confirm delete", DeletePortalDialog);
+            }
         }
 
         private async void DeletePortalDialog(int buttonIdx, string portalNameLinkId, string inputContent, int playerId,

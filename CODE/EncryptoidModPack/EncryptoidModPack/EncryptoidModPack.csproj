@@ -35,7 +35,7 @@
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Empyrion - Dedicated Server\DedicatedServer\EmpyrionDedicated_Data\Managed\Mif.dll</HintPath>
     </Reference>
     <Reference Include="ModApi">
-      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Empyrion - Dedicated Server\DedicatedServer\EmpyrionDedicated_Data\Managed\ModApi.dll</HintPath>
+      <HintPath>..\Tetherport\bin\Debug\ModApi.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Empyrion - Dedicated Server\DedicatedServer\EmpyrionDedicated_Data\Managed\protobuf-net.dll</HintPath>

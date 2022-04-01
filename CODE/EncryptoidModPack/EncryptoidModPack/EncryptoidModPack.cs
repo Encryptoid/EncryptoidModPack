@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using AdminTetherport;
+﻿using AdminTetherport;
 using EmpyrionModdingFramework;
 using EmpyrionModdingFramework.Database;
 using ModLocator;
@@ -55,6 +54,7 @@ namespace EncryptoidModPack
             var retriever = new RetrieverHandler(new CsvManager(modLocator.GetDatabaseFolder()), this, Log);
 
             CommandManager.CommandList.Add(new ChatCommand(RetrieverHandler.RetrieveCommand, retriever.DialogRetrievePlayer, PlayerPermission.Admin));
+            CommandManager.CommandList.Add(new ChatCommand(RetrieverHandler.RetrieveIssueCommand, retriever.DialogRetrievePlayer, PlayerPermission.Admin));
             CommandManager.CommandList.Add(new ChatCommand(RetrieverHandler.ReturnCommand, retriever.DialogReturnPlayer, PlayerPermission.Admin));
         }
     }
