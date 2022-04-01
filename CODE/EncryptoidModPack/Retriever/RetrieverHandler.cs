@@ -19,8 +19,8 @@ namespace Retriever
         private readonly Action<string> _log;
 
         public const string ModName = "Retriever";
-        public const string RetrieveCommand = "retrieve";
-        public const string RetrieveIssueCommand = "retrieve-issue";
+        public const string RetrieveCommand = "retrieve-event";
+        public const string RetrieveIssueCommand = "retrieve";
         public const string ReturnCommand = "return";
 
         public RetrieverHandler(IDatabaseManager dbManager, EmpyrionModdingFrameworkBase modFramework, Action<string> logFunc)

@@ -51,7 +51,6 @@
     <Compile Include="TetherportFormatter.cs" />
     <Compile Include="TetherportBasicHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TetherportConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TetherportConfig.json" />
