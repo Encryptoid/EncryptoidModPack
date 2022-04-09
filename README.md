@@ -18,6 +18,11 @@ Many thanks again to the work I forked for the base zucchini-empyrion mod, it wo
 
 All commands below are read by the mod from the Server chat tab.
 
+
+# !modpack
+
+This will launch a UI detailing all available commands and how to use them, similar to below.
+
 # Tetherport Commands
 
 **!tetherport** or **!ttp** (All Players)
