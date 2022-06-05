@@ -49,8 +49,7 @@ namespace Tetherport
             foreach(var record in unfilteredRecords)
             {
                 // Do not add Ship=N records if the player is sitting, unless they are an admin
-                //if (!player.IsAdmin() && record.ShipYN.N() && player.IsSeated())
-                if (record.ShipYN.N() && player.IsSeated())
+                if (!player.IsAdmin() && record.ShipYN.N() && player.IsSeated())
                     continue;
 
                 records.Add(record);
