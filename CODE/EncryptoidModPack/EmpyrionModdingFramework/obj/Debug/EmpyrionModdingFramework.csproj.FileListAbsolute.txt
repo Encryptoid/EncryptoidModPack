@@ -24,3 +24,4 @@ L:\Empyrion\Solutions\CODE\EncryptoidModPack\EmpyrionModdingFramework\obj\Debug\
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\EmpyrionModdingFramework\obj\Debug\EmpyrionModdingFramework.csproj.CopyComplete
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\EmpyrionModdingFramework\obj\Debug\EmpyrionModdingFramework.dll
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\EmpyrionModdingFramework\obj\Debug\EmpyrionModdingFramework.pdb
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\EmpyrionModdingFramework\obj\Debug\EmpyrionModdingFramework.csproj.AssemblyReference.cache

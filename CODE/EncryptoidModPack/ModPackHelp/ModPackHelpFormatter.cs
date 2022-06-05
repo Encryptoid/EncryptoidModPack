@@ -30,6 +30,9 @@ namespace ModPackHelp
                 $"Clicking on one will toggle the AdminYN value from Y -> N or N -> Y, allowing the portals to be only visible to everyone or just admins.\n\n";
 
             uiString +=
+                $"!{TetherportHandler.PortalShipCommand}\nThis works like !{TetherportHandler.PortalAdminCommand} but toggles the ShipYN value.\n\n";
+
+            uiString +=
                 $"!{TetherportHandler.PortalDeleteCommand}\nThis will launch a UI showing portals." +
                 $" Clicking one will take you to a confirm window, where you can click again to delete it.\n\n";
 

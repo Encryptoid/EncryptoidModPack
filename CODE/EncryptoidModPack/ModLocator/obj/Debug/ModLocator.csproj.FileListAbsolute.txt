@@ -28,3 +28,4 @@ L:\Empyrion\Solutions\CODE\EncryptoidModPack\ModLocator\obj\Debug\ModLocator.csp
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\ModLocator\obj\Debug\ModLocator.csproj.CopyComplete
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\ModLocator\obj\Debug\ModLocator.dll
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\ModLocator\obj\Debug\ModLocator.pdb
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\ModLocator\obj\Debug\ModLocator.csproj.AssemblyReference.cache
