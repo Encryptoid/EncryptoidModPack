@@ -11,7 +11,6 @@ namespace ModLocator
     {
         private Action<string> _log;
         private const string ModFolderFileName = "modfolder.path";
-        private const string ConfigFileName = "config.json";
         private const string ModPackName = "EncryptoidModPack";
         
         private readonly string _modName;
@@ -24,9 +23,9 @@ namespace ModLocator
             _modFolderPath = GetModFolder();
         }
 
-        public string GetConfigFile()
+        public string GetConfigFile(string configFileName)
         {
-            return Path.Combine(_modFolderPath, ConfigFileName);
+            return Path.Combine(_modFolderPath, configFileName);
         }
 
         public string GetDatabaseFolder()

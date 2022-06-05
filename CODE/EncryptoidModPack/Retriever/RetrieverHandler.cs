@@ -19,7 +19,7 @@ namespace Retriever
         private readonly Action<string> _log;
 
         public const string ModName = "Retriever";
-        public const string RetrieveCommand = "retrieve-event";
+        public const string RetrieveCommand = "retrieve-tether";
         public const string RetrieveIssueCommand = "retrieve";
         public const string ReturnCommand = "return";
 

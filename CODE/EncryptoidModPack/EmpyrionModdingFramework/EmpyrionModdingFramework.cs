@@ -39,6 +39,7 @@ namespace EmpyrionModdingFramework
             FrameworkConfig = new FrameworkConfig();
 
             ModAPI.Application.ChatMessageSent += CommandManager.ProcessChatMessageAsync;
+            ModAPI.Application.OnPlayfieldLoaded += ApplicationOnOnPlayfieldLoaded;
 
             try
             {
@@ -53,6 +54,11 @@ namespace EmpyrionModdingFramework
             {
                 LogDebug("LegacyAPI not found. Only Client mods supported.");
             }
+        }
+
+        private void ApplicationOnOnPlayfieldLoaded(IPlayfield playfield)
+        {
+            Log("Playfield loaded: " + playfield.Name);
         }
 
         public void Shutdown()

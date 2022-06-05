@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EmpyrionModdingFramework
@@ -69,11 +70,11 @@ namespace EmpyrionModdingFramework
             ModAPI.Application.ShowDialogBox(entityId, dialogConfig, new DialogActionHandler(linkCallback), 99);
         }
 
-        public async Task TeleportPlayerToPlayer(int playerId, int targetId)
+        public async Task TeleportPlayerToPlayer(int playerId, int targetId, int offsetX = 0, int offsetY = 0, int offsetZ = 0)
         {
             var target = await QueryPlayerInfo(targetId);
 
-            await TeleportPlayer(playerId, target.playfield, target.pos.x, target.pos.y, target.pos.z, target.rot.x, target.rot.y, target.rot.z);
+            await TeleportPlayer(playerId, target.playfield, target.pos.x + offsetX, target.pos.y + offsetY, target.pos.z + offsetZ, target.rot.x, target.rot.y, target.rot.z);
         }
 
         public async Task TeleportPlayer(int entityId, string playfield, float posX, float posY, float posZ, float rotX, float rotY, float rotZ)
@@ -119,12 +120,74 @@ namespace EmpyrionModdingFramework
                 var idList = (IdList)await RequestManager.SendGameRequest(CmdId.Request_Player_List, null);
                 playerIds = idList.list;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log($"Could not retrieve player list. Exception: {e}");
             }
 
             return playerIds;
+        }
+
+        public class PlayfieldRequester: IDisposable
+        {
+            private int _playerId;
+            private bool _completed;
+            private IEnumerable<GlobalStructureInfo> _structures;
+            public PlayfieldRequester(int playerId)
+            {
+                _playerId = playerId;
+            }
+
+            public IEnumerable<GlobalStructureInfo> GetPlayFieldEntities(string playfieldName, Action<string> log)
+            {
+                ModAPI.Application.GetStructures(playfieldName, null, null, GetStructuresCallBack);
+                log("starting");
+                while (!_completed)
+                {
+                    log("Checking");
+                    Thread.Sleep(100);
+                }
+
+                return _structures;
+            }
+
+            private void GetStructuresCallBack(IEnumerable<GlobalStructureInfo> structures)
+            {
+                _structures = structures;
+                _completed = true;
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
+        public async Task<bool> IsSeatedInBa(PlayerInfo playerInfo)
+        {
+            List<GlobalStructureInfo> playfieldEntities;
+            using (var request = new PlayfieldRequester(playerInfo.entityId))
+            {
+                playfieldEntities = request.GetPlayFieldEntities(playerInfo.playfield, Log).ToList();
+            }
+
+
+
+            foreach(var entity in playfieldEntities)
+            {
+                Log($"ENTITY: {entity.type} + {entity.id} + {entity.name} + {entity.pilotId} + {entity.dockedShips?.Count ?? 0}");
+                if (entity.pilotId == playerInfo.entityId)
+                {
+                    Log($"SITTINGIN: {entity.name}");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void PlayerIsPilot(int requestPlayerId, IEnumerable<GlobalStructureInfo> structures)
+        {
+
+
         }
 
         protected char InvertYN(char yn)

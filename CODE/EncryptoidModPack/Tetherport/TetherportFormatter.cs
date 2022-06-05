@@ -10,7 +10,7 @@ namespace Tetherport
 {
     public static class TetherportFormatter
     {
-        public static string FormatLocationList(List<LocationRecord> locations, bool isAdmin, string startingText, List<string> commands = null)
+        public static string FormatLocationList(List<PortalRecord> locations, bool isAdmin, string startingText, List<string> commands = null)
         {
             var uiString = startingText + "\n\n";
 
@@ -41,12 +41,12 @@ namespace Tetherport
             return uiString;
         }
 
-        public static string AdminFormatLocation(LocationRecord location)
+        public static string AdminFormatLocation(PortalRecord location)
         {
-            return $"<link=\"{location.Name}\"><indent=15%><line-height=150%>{location.Name} | {location.Playfield} | AdminYN={location.AdminYN}</line-height></indent></link>";
+            return $"<link=\"{location.Name}\"><indent=15%><line-height=150%>{location.Name} | {location.Playfield} | AdminYN={location.AdminYN} | ShipYN={location.ShipYN}</line-height></indent></link>";
         }
 
-        private static string FormatLocation(LocationRecord location)
+        private static string FormatLocation(PortalRecord location)
         {
             return $"<link=\"{location.Name}\"><indent=15%><line-height=150%>{location.Name} | {location.Playfield}</line-height></indent></link>";
         }

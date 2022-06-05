@@ -38,6 +38,7 @@
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Empyrion - Dedicated Server\DedicatedServer\EmpyrionDedicated_Data\Managed\ModApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,17 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TetherportAdminHandler.cs" />
+    <Compile Include="TetherportConfig.cs" />
     <Compile Include="TetherportFormatter.cs" />
     <Compile Include="TetherportBasicHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="TetherportConfig.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EmpyrionModdingFramework\EmpyrionModdingFramework.csproj">
       <Project>{98064548-5ECA-4D2C-97CB-78224487B6E6}</Project>
       <Name>EmpyrionModdingFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModLocator\ModLocator.csproj">
+      <Project>{50C5C3C8-45A9-4609-8435-6739F59602C7}</Project>
+      <Name>ModLocator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

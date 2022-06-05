@@ -35,9 +35,9 @@ namespace EmpyrionModdingFramework.Teleport
         public float RotY { get; set; }
         public float RotZ { get; set; }
 
-        public LocationRecord ToLocationRecord(string locationName, char adminYN = 'N')
+        public PortalRecord ToLocationRecord(string locationName, char adminYN = 'N')
         {
-            return new LocationRecord
+            return new PortalRecord
             {
                 AdminYN = adminYN,
                 Name = locationName,

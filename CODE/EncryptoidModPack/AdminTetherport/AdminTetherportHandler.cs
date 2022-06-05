@@ -17,20 +17,35 @@ namespace AdminTetherport
         private readonly IDatabaseManager _dbManager;
         private readonly EmpyrionModdingFrameworkBase _modFramework;
         private readonly Action<string> _log;
+        private readonly AdminTetherportConfig _config;
 
         public const string ModName = "AdminTetherport";
         public const string AdminTetherportCommand = "admin-tetherport";
         public const string AdminTetherportShorthand = "attp";
+        public const string AdminTetherportOffsetCommand = "attp-off";
         public const int UntetherLinkId = -99;
+        public const string AdminTetherportConfig = "admin_tetherport_config.yaml";
 
-        public AdminTetherportHandler(IDatabaseManager dbManager, EmpyrionModdingFrameworkBase modFramework, Action<string> logFunc)
+        public AdminTetherportHandler(IDatabaseManager dbManager, EmpyrionModdingFrameworkBase modFramework,
+            Action<string> logFunc, AdminTetherportConfig config)
         {
             _dbManager = dbManager;
             _modFramework = modFramework;
             _log = logFunc;
+            _config = config;
         }
 
-        public async Task ShowOnlinePlayers(MessageData messageData)
+        public async Task ShowOnlinePlayersNoOffset(MessageData messageData)
+        {
+            await ShowOnlinePlayers(messageData, false);
+        }
+
+        public async Task ShowOnlinePlayersOffset(MessageData messageData)
+        {
+            await ShowOnlinePlayers(messageData, true);
+        }
+
+        private async Task ShowOnlinePlayers(MessageData messageData, bool useOffset)
         {
             var adminPlayer = await _modFramework.QueryPlayerInfo(messageData.SenderEntityId);
             if (adminPlayer == null) return;
@@ -40,12 +55,24 @@ namespace AdminTetherport
             List<PlayerInfo> allPlayers = new List<PlayerInfo>();
             foreach (var playerId in playerIdList)
             {
-                allPlayers.Add(await _modFramework.QueryPlayerInfo(playerId));
+                var playerInfo = await _modFramework.QueryPlayerInfo(playerId);
+                allPlayers.Add(playerInfo);
             }
 
             var existingTetherRecord = _dbManager.LoadRecords<PlayerLocationRecord>(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId))?.FirstOrDefault();
 
-            _modFramework.ShowLinkedTextDialog(adminPlayer.entityId, AdminTetherportFormatter.FormatAttpMessage(allPlayers, existingTetherRecord), "Admin Tetherport!", TetherportToPlayer);
+            if (useOffset)
+            {
+                _modFramework.ShowLinkedTextDialog(adminPlayer.entityId,
+                    AdminTetherportFormatter.FormatAttpMessage(allPlayers, existingTetherRecord),
+                    "Admin Tetherport!", TetherportToPlayerOffset);
+            }
+            else
+            {
+                _modFramework.ShowLinkedTextDialog(adminPlayer.entityId,
+                    AdminTetherportFormatter.FormatAttpMessage(allPlayers, existingTetherRecord),
+                    "Admin Tetherport!", TetherportToPlayer);
+            }
         }
 
         private async void TetherportToPlayer(int buttonIdx, string linkId, string inputContent, int adminId, int customValue)
@@ -65,6 +92,27 @@ namespace AdminTetherport
                 clearExisting: true);
 
             await _modFramework.TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId);
+            await _modFramework.MessagePlayer(adminPlayer.entityId, $"Created Admin Tetherport tether! Teleported to PlayerId:{targetPlayerId}.", 5);
+        }
+
+        private async void TetherportToPlayerOffset(int buttonIdx, string linkId, string inputContent, int adminId,
+            int customValue)
+        {
+            if (string.IsNullOrWhiteSpace(linkId))
+                return;
+
+            if (string.Equals(linkId, $"{UntetherLinkId}"))
+            {
+                AdminUntether(adminId);
+            }
+
+            var targetPlayerId = int.Parse(linkId);
+            var adminPlayer = await _modFramework.QueryPlayerInfo(adminId);
+
+            _dbManager.SaveRecord(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId), adminPlayer.ToPlayerLocationRecord(),
+                clearExisting: true);
+
+            await _modFramework.TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId, _config.OffsetX, _config.OffsetY, _config.OffsetZ);
             await _modFramework.MessagePlayer(adminPlayer.entityId, $"Created Admin Tetherport tether! Teleported to PlayerId:{targetPlayerId}.", 5);
         }
 

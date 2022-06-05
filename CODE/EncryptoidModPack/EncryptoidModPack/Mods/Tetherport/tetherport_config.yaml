@@ -1,0 +1,4 @@
+﻿TetherportDelay: 10
+TtpString: Click on one of the below locations to Tetherport there! If you have an Untether, it will not be removed until you use it!
+SeatedWarning: <color="red">You are currently sitting. If you are sitting in a BA, it can be deleted while teleporting and be unrecoverable. Please ensure you are seated in a ship before confirming. ESC to cancel. Click below to confirm.
+SuccessfulUntether: You have successfully untethered and your tether record has been cleared.

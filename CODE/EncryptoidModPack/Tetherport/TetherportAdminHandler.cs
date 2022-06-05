@@ -9,9 +9,17 @@ namespace Tetherport
 {
     public partial class TetherportHandler
     {
+        public readonly List<string> TetherportAdminCommands = new List<string>
+        {
+            PortalCreateCommand,
+            PortalAdminCommand,
+            PortalShipCommand,
+            PortalDeleteCommand
+        };
         public const string PortalCreateCommand = "portal-create";
         public const string PortalDeleteCommand = "portal-delete";
         public const string PortalAdminCommand = "portal-admin";
+        public const string PortalShipCommand = "portal-ship";
 
         public async Task CreatePortal(MessageData messageData)
         {
@@ -33,10 +41,11 @@ namespace Tetherport
                 return;
             }
 
-            var newLocation = new LocationRecord()
+            var newLocation = new PortalRecord()
             {
                 Name = portalName,
                 AdminYN = 'Y', //Portals are admin only by default
+                ShipYN = 'N',
                 Playfield = player.playfield,
                 PosX = player.pos.x,
                 PosY = player.pos.y,
@@ -54,26 +63,73 @@ namespace Tetherport
         public async Task PortalToggleAdmin(MessageData messageData)
         {
             var player = await _modFramework.QueryPlayerInfo(messageData.SenderEntityId);
-            var records = _dbManager.LoadRecords<LocationRecord>(PortalFileName);
+            var records = _dbManager.LoadRecords<PortalRecord>(PortalFileName);
 
-            _modFramework.ShowLinkedTextDialog(player.entityId, TetherportFormatter.FormatLocationList(records, true, 
-                    "Please select a Portal below to toggle it's Admin status", new List<string>{ PortalCreateCommand, PortalAdminCommand, PortalDeleteCommand }), 
+            var locList = TetherportFormatter.FormatLocationList(records, true,
+                "Please select a Portal below to toggle it's Admin status",
+                TetherportAdminCommands);
+
+            _modFramework.Log("ADMINMSG: " + locList);
+
+            _modFramework.ShowLinkedTextDialog(player.entityId, locList, 
                 "Toggle Admin Visibility", DialogToggleAdmin);
         }
 
         private async void DialogToggleAdmin(int buttonIdx, string linkId, string inputContent, int playerId, int customValue)
         {
             var success = false;
-            var existingRecords = _dbManager.LoadRecords<LocationRecord>(PortalFileName);
-            var newRecords = new List<LocationRecord>();
+            var existingRecords = _dbManager.LoadRecords<PortalRecord>(PortalFileName);
+            var newRecords = new List<PortalRecord>();
             var oldValue = ' ';
 
             foreach (var portal in existingRecords)
             {
-                if (portal.Name == inputContent)
+                if (string.Equals(portal.Name, linkId))
                 {
                     oldValue = portal.AdminYN;
                     portal.AdminYN = InvertYN(portal.AdminYN);
+                    success = true;
+                }
+                newRecords.Add(portal);
+                _modFramework.Log($"LOGGINGMSG: {portal.Name}");
+            }
+
+            if (success)
+            {
+                _dbManager.SaveRecords(PortalFileName, newRecords, true);
+                await _modFramework.MessagePlayer(playerId, $"Successfully set Admin privileges for portal \"{linkId}\" from \'{oldValue}\' to '{InvertYN(oldValue)}'",
+                    5, MessagerPriority.Yellow);
+            }
+            else
+            {
+                await _modFramework.MessagePlayer(playerId, $"Failed to changed portal Admin status. Attempted Name Lookup: \"{linkId}\"",
+                    5, MessagerPriority.Red);
+            }
+        }
+
+        public async Task PortalToggleShip(MessageData messageData)
+        {
+            var player = await _modFramework.QueryPlayerInfo(messageData.SenderEntityId);
+            var records = _dbManager.LoadRecords<PortalRecord>(PortalFileName);
+
+            _modFramework.ShowLinkedTextDialog(player.entityId, TetherportFormatter.FormatLocationList(records, true,
+                "Please select a Portal below to toggle whether ships are allowed", TetherportAdminCommands),
+                "Toggle Ship Visibility", DialogToggleShip);
+        }
+
+        private async void DialogToggleShip(int buttonIdx, string linkId, string inputContent, int playerId, int customValue)
+        {
+            var success = false;
+            var existingRecords = _dbManager.LoadRecords<PortalRecord>(PortalFileName);
+            var newRecords = new List<PortalRecord>();
+            var oldValue = ' ';
+
+            foreach (var portal in existingRecords)
+            {
+                if (string.Equals(portal.Name, linkId))
+                {
+                    oldValue = portal.ShipYN;
+                    portal.ShipYN = InvertYN(portal.ShipYN);
                     success = true;
                 }
                 newRecords.Add(portal);
@@ -82,12 +138,12 @@ namespace Tetherport
             if (success)
             {
                 _dbManager.SaveRecords(PortalFileName, newRecords, true);
-                await _modFramework.MessagePlayer(playerId, $"Successfully set Admin privileges for portal \"{inputContent}\" from \'{oldValue}\' to '{InvertYN(oldValue)}'",
+                await _modFramework.MessagePlayer(playerId, $"Successfully set Ship allowance for portal \"{linkId}\" from \'{oldValue}\' to '{InvertYN(oldValue)}'",
                     5, MessagerPriority.Yellow);
             }
             else
             {
-                await _modFramework.MessagePlayer(playerId, $"Failed to changed portal Admin status. Attempted Name Lookup: \"{inputContent}\"",
+                await _modFramework.MessagePlayer(playerId, $"Failed to changed portal Ship status. Attempted Name Lookup: \"{linkId}\"",
                     5, MessagerPriority.Red);
             }
         }
@@ -95,7 +151,7 @@ namespace Tetherport
         public async Task DeletePortal(MessageData messageData)
         {
             var player = await _modFramework.QueryPlayerInfo(messageData.SenderEntityId);
-            var records = _dbManager.LoadRecords<LocationRecord>(PortalFileName);
+            var records = _dbManager.LoadRecords<PortalRecord>(PortalFileName);
 
             _modFramework.ShowLinkedTextDialog(player.entityId, TetherportFormatter.FormatLocationList(records, true, 
                 "Please select one of the portals below to delete it.", 
@@ -104,7 +160,7 @@ namespace Tetherport
 
         private void ConfirmDeletePortalDialog(int buttonIdx, string linkId, string inputContent, int playerId, int customValue)
         {
-            var portalRecord = _dbManager.LoadRecords<LocationRecord>(PortalFileName)
+            var portalRecord = _dbManager.LoadRecords<PortalRecord>(PortalFileName)
                 .Where(e => string.Equals(e.Name, linkId)).ToList();
 
             if (portalRecord.Count != 0)
@@ -121,8 +177,8 @@ namespace Tetherport
             var player = await _modFramework.QueryPlayerInfo(playerId);
 
             var success = false;
-            var existingRecords = _dbManager.LoadRecords<LocationRecord>(PortalFileName);
-            var newRecords = new List<LocationRecord>();
+            var existingRecords = _dbManager.LoadRecords<PortalRecord>(PortalFileName);
+            var newRecords = new List<PortalRecord>();
 
             foreach (var portal in existingRecords)
             {

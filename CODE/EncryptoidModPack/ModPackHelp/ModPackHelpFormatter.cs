@@ -41,6 +41,8 @@ namespace ModPackHelp
                 "Selecting one of the players will create a tether for you, and teleport you to them. " +
                 "Using another admin tether will overwrite your existing one. So untether before use if you want to save your original location.\n\n";
 
+            uiString += $"!{AdminTetherportHandler.AdminTetherportOffsetCommand}\nThis will work the same as the other commands but will teleport you to an offset location.\n\n";
+
             uiString += Header("Retriever");
             uiString += $"!{RetrieverHandler.RetrieveCommand}\n";
             uiString +=

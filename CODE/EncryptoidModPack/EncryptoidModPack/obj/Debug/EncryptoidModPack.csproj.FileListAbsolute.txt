@@ -43,3 +43,5 @@ L:\Empyrion\Solutions\CODE\EncryptoidModPack\EncryptoidModPack\obj\Debug\Encrypt
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\EncryptoidModPack\obj\Debug\EncryptoidModPack.csproj.CopyComplete
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\EncryptoidModPack\obj\Debug\EncryptoidModPack.dll
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\EncryptoidModPack\obj\Debug\EncryptoidModPack.pdb
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\EncryptoidModPack\bin\Debug\Mods\Tetherport\tetherport_config.yaml
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\EncryptoidModPack\bin\Debug\Mods\AdminTetherport\admin_tetherport_config.yaml

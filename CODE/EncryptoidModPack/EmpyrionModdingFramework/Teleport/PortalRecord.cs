@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace EmpyrionModdingFramework.Teleport
 {
-    public class LocationRecord
+    public class PortalRecord
     {
-        public LocationRecord() { } //For CsvHelper
+        public PortalRecord() { } //For CsvHelper
         public string Name { get; set; }
         public char AdminYN { get; set; }
+        public char ShipYN { get; set; }
         public string Playfield { get; set; }
         public float PosX { get; set; }
         public float PosY { get; set; }

@@ -201,3 +201,7 @@ L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\obj\Debug\Tetherport.csp
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\obj\Debug\Tetherport.csproj.CopyComplete
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\obj\Debug\Tetherport.dll
 L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\obj\Debug\Tetherport.pdb
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\bin\Debug\ModLocator.dll
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\bin\Debug\Newtonsoft.Json.dll
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\bin\Debug\ModLocator.pdb
+L:\Empyrion\Solutions\CODE\EncryptoidModPack\Tetherport\bin\Debug\Newtonsoft.Json.xml
