@@ -170,13 +170,10 @@ namespace Tetherport
 
             var isSitting = player.IsSeated();
 
-            if (!player.IsAdmin())
-            {
-                //This is intentionally not awaited as there is a task delay after
-                _modFramework.MessagePlayer(player.entityId,
-                    $"Initiating Tetherport. {_config.TetherportDelay} seconds to launch.", _config.TetherportDelay);
-                await Task.Delay(new TimeSpan(0, 0, _config.TetherportDelay));
-            }
+            //This is intentionally not awaited as there is a task delay after
+            _modFramework.MessagePlayer(player.entityId,
+                $"Initiating Tetherport. {_config.TetherportDelay} seconds to launch.", _config.TetherportDelay);
+            await Task.Delay(new TimeSpan(0, 0, _config.TetherportDelay));
 
             //Requery player info
             player = await _modFramework.QueryPlayerInfo(playerId);
