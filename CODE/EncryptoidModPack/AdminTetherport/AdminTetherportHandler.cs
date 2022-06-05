@@ -83,13 +83,20 @@ namespace AdminTetherport
             if (string.Equals(linkId, $"{UntetherLinkId}"))
             {
                 AdminUntether(adminId);
+                return;
             }
 
             var targetPlayerId = int.Parse(linkId);
             var adminPlayer = await _modFramework.QueryPlayerInfo(adminId);
 
-            _dbManager.SaveRecord(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId), adminPlayer.ToPlayerLocationRecord(),
-                clearExisting: true);
+            var existingRecord = _dbManager.LoadRecords<PlayerLocationRecord>(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId))?.FirstOrDefault();
+
+            if (existingRecord == null)
+            {
+                _dbManager.SaveRecord(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId),
+                    adminPlayer.ToPlayerLocationRecord(),
+                    clearExisting: true);
+            }
 
             await _modFramework.TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId);
             await _modFramework.MessagePlayer(adminPlayer.entityId, $"Created Admin Tetherport tether! Teleported to PlayerId:{targetPlayerId}.", 5);
@@ -104,15 +111,22 @@ namespace AdminTetherport
             if (string.Equals(linkId, $"{UntetherLinkId}"))
             {
                 AdminUntether(adminId);
+                return;
             }
 
             var targetPlayerId = int.Parse(linkId);
             var adminPlayer = await _modFramework.QueryPlayerInfo(adminId);
 
-            _dbManager.SaveRecord(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId), adminPlayer.ToPlayerLocationRecord(),
-                clearExisting: true);
+            var existingRecord = _dbManager.LoadRecords<PlayerLocationRecord>(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId))?.FirstOrDefault();
 
-            await _modFramework.TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId, _config.OffsetX, _config.OffsetY, _config.OffsetZ);
+            if (existingRecord == null)
+            {
+                _dbManager.SaveRecord(TetherportFormatter.FormatTetherportFileName(adminPlayer.steamId),
+                    adminPlayer.ToPlayerLocationRecord(),
+                    clearExisting: true);
+            }
+
+            await _modFramework.TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId);
             await _modFramework.MessagePlayer(adminPlayer.entityId, $"Created Admin Tetherport tether! Teleported to PlayerId:{targetPlayerId}.", 5);
         }
 
@@ -133,6 +147,8 @@ namespace AdminTetherport
             await _modFramework.TeleportPlayer(player.entityId, existingRecord.Playfield,
                 existingRecord.PosX, existingRecord.PosY, existingRecord.PosZ,
                 existingRecord.RotX, existingRecord.RotY, existingRecord.RotZ);
+
+            _dbManager.DeleteRecord(TetherportFormatter.FormatTetherportFileName(player.steamId));
         }
     }
 }

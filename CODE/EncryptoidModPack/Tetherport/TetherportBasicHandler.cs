@@ -42,8 +42,6 @@ namespace Tetherport
         {
             var player = await _modFramework.QueryPlayerInfo(messageData.SenderEntityId);
 
-            await _modFramework.IsSeatedInBa(player);
-
             var unfilteredRecords = _dbManager.LoadRecords<PortalRecord>(PortalFileName) ?? new List<PortalRecord>();
             var records = new List<PortalRecord>();
             foreach(var record in unfilteredRecords)
@@ -171,16 +169,18 @@ namespace Tetherport
             }
 
             var isSitting = player.IsSeated();
-            _log("Seated status1: " + isSitting);
 
-            //This is intentionally not awaited as there is a task delay after
-            _modFramework.MessagePlayer(player.entityId, $"Initiating Tetherport. {_config.TetherportDelay} seconds to launch.", _config.TetherportDelay);
-            await Task.Delay(new TimeSpan(0, 0, _config.TetherportDelay));
+            if (!player.IsAdmin())
+            {
+                //This is intentionally not awaited as there is a task delay after
+                _modFramework.MessagePlayer(player.entityId,
+                    $"Initiating Tetherport. {_config.TetherportDelay} seconds to launch.", _config.TetherportDelay);
+                await Task.Delay(new TimeSpan(0, 0, _config.TetherportDelay));
+            }
 
             //Requery player info
             player = await _modFramework.QueryPlayerInfo(playerId);
             var stillSeated = player.IsSeated();
-            _log("Seated status2: " + stillSeated);
 
             if (isSitting != stillSeated)
             {

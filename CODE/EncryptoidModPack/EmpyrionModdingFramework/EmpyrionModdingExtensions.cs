@@ -138,19 +138,6 @@ namespace EmpyrionModdingFramework
                 _playerId = playerId;
             }
 
-            public IEnumerable<GlobalStructureInfo> GetPlayFieldEntities(string playfieldName, Action<string> log)
-            {
-                ModAPI.Application.GetStructures(playfieldName, null, null, GetStructuresCallBack);
-                log("starting");
-                while (!_completed)
-                {
-                    log("Checking");
-                    Thread.Sleep(100);
-                }
-
-                return _structures;
-            }
-
             private void GetStructuresCallBack(IEnumerable<GlobalStructureInfo> structures)
             {
                 _structures = structures;
@@ -160,34 +147,6 @@ namespace EmpyrionModdingFramework
             public void Dispose()
             {
             }
-        }
-
-        public async Task<bool> IsSeatedInBa(PlayerInfo playerInfo)
-        {
-            List<GlobalStructureInfo> playfieldEntities;
-            using (var request = new PlayfieldRequester(playerInfo.entityId))
-            {
-                playfieldEntities = request.GetPlayFieldEntities(playerInfo.playfield, Log).ToList();
-            }
-
-
-
-            foreach(var entity in playfieldEntities)
-            {
-                Log($"ENTITY: {entity.type} + {entity.id} + {entity.name} + {entity.pilotId} + {entity.dockedShips?.Count ?? 0}");
-                if (entity.pilotId == playerInfo.entityId)
-                {
-                    Log($"SITTINGIN: {entity.name}");
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void PlayerIsPilot(int requestPlayerId, IEnumerable<GlobalStructureInfo> structures)
-        {
-
-
         }
 
         protected char InvertYN(char yn)

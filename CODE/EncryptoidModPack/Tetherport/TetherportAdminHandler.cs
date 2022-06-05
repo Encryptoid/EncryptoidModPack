@@ -69,8 +69,6 @@ namespace Tetherport
                 "Please select a Portal below to toggle it's Admin status",
                 TetherportAdminCommands);
 
-            _modFramework.Log("ADMINMSG: " + locList);
-
             _modFramework.ShowLinkedTextDialog(player.entityId, locList, 
                 "Toggle Admin Visibility", DialogToggleAdmin);
         }
@@ -91,7 +89,6 @@ namespace Tetherport
                     success = true;
                 }
                 newRecords.Add(portal);
-                _modFramework.Log($"LOGGINGMSG: {portal.Name}");
             }
 
             if (success)
