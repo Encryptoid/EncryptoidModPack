@@ -43,7 +43,7 @@ namespace ModLocator
             }
             var modPackFolderPath = Path.GetFullPath(File.ReadAllText(directionFile).Trim()); //Trim spaces and parse relative paths
 
-            if (!Directory.Exists(modPackFolderPath)) //Check for ../Content/Mods/EncryptoidModPack directory
+            if (!Directory.Exists(modPackFolderPath)) //Check for ../Content/Mods/ directory
             {
                 _log($"{_modName} cannot location it's database path, the full location it checked was: {modPackFolderPath}");
                 return null;
