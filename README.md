@@ -56,6 +56,7 @@ This will launch a UI with the list of portals. Clicking on one, will bring you 
 **!admintetherport** or **!attp***
 
 This command will launch a UI showing all online players. Clicking one will create a tether at your current location and teleport you to the player. Your UNTETHER record will show up at the top of the list next time. Unlike **!tetherport**, this command will overwrite your untether if you have one, so untether before using if you want to save the original location.
+You can also use !attp-off, which will teleport you to the player with a configurable offset to his position. Check the offset in the file mods/AdminTetherport/admin_tetherport_config.yaml
 
 ![image](https://user-images.githubusercontent.com/89423557/162569636-64340659-e572-4799-be35-1b23c97b7ff9.png)
 

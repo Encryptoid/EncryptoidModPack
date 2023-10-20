@@ -126,7 +126,7 @@ namespace AdminTetherport
                     clearExisting: true);
             }
 
-            await _modFramework.TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId);
+            await _modFramework.TeleportPlayerToPlayer(adminPlayer.entityId, targetPlayerId, _config.OffsetX, _config.OffsetY, _config.OffsetZ);
             await _modFramework.MessagePlayer(adminPlayer.entityId, $"Created Admin Tetherport tether! Teleported to PlayerId:{targetPlayerId}.", 5);
         }
 
