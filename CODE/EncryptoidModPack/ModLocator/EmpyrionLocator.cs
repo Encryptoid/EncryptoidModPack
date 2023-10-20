@@ -11,7 +11,6 @@ namespace ModLocator
     {
         private Action<string> _log;
         private const string ModFolderFileName = "modfolder.path";
-        private const string ModPackName = "EncryptoidModPack";
         
         private readonly string _modName;
         private readonly string _modFolderPath;
@@ -39,19 +38,18 @@ namespace ModLocator
 
             if (!File.Exists(directionFile))
             {
-                _log($"{ModPackName} cannot locate it's database path. Please place a {ModFolderFileName} file in the folder you are running the server from: {Directory.GetCurrentDirectory()}");
+                _log($"{_modName} cannot locate it's database path. Please place a {ModFolderFileName} file in the folder you are running the server from: {Directory.GetCurrentDirectory()}");
                 return null;
             }
             var modPackFolderPath = Path.GetFullPath(File.ReadAllText(directionFile).Trim()); //Trim spaces and parse relative paths
-            modPackFolderPath = Path.Combine(modPackFolderPath, ModPackName);
 
             if (!Directory.Exists(modPackFolderPath)) //Check for ../Content/Mods/EncryptoidModPack directory
             {
-                _log($"{ModPackName} cannot location it's database path, the full location it checked was: {modPackFolderPath}");
+                _log($"{_modName} cannot location it's database path, the full location it checked was: {modPackFolderPath}");
                 return null;
             }
 
-            return Path.Combine(modPackFolderPath, "Mods", _modName);
+            return Path.Combine(modPackFolderPath, _modName);
         }
     }
 }

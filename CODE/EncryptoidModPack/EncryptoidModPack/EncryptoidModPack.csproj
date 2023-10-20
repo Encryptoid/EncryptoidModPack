@@ -84,28 +84,28 @@
     <Content Include="EncryptoidModPack_Info.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Mods\AdminTetherport\Database\Tethers\.gitignore">
+    <Content Include="SampleEncryptoidDatabase\AdminTetherport\Database\Tethers\.gitignore">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Mods\Retriever\Database\Tethers\.gitignore">
+    <Content Include="SampleEncryptoidDatabase\Retriever\Database\Tethers\.gitignore">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Mods\Tetherport\Database\Tethers\.gitignore">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Mods\Tetherport\Database\portal.tether">
+    <Content Include="SampleEncryptoidDatabase\Tetherport\Database\Tethers\.gitignore">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mods\Tetherport\tetherport_config.yaml">
+    <Content Include="SampleEncryptoidDatabase\Tetherport\Database\portal.tether">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mods\AdminTetherport\admin_tetherport_config.yaml">
+    <Content Include="SampleEncryptoidDatabase\Tetherport\tetherport_config.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SampleEncryptoidDatabase\AdminTetherport\admin_tetherport_config.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
