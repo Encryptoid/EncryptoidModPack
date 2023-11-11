@@ -20,6 +20,7 @@ namespace Tetherport
         private readonly EmpyrionModdingFrameworkBase _modFramework;
         private readonly Action<string> _log;
         private readonly TetherportConfig _config;
+        private readonly TetherportTargetHelper _targetHelper;
 
         private const string PortalFileName = "portal.tether";
         private const string UntetherLocationName = "UNTETHER";
@@ -36,6 +37,7 @@ namespace Tetherport
             _modFramework = modFramework;
             _log = logFunc;
             _config = config;
+            _targetHelper = new TetherportTargetHelper(_dbManager, _log);
         }
 
         public async Task ListPortals(MessageData messageData)
@@ -171,7 +173,7 @@ namespace Tetherport
             var isSitting = player.IsSeated();
 
             //This is intentionally not awaited as there is a task delay after
-            _modFramework.MessagePlayer(player.entityId,
+            _ = _modFramework.MessagePlayer(player.entityId,
                 $"Initiating Tetherport. {_config.TetherportDelay} seconds to launch.", _config.TetherportDelay);
             await Task.Delay(new TimeSpan(0, 0, _config.TetherportDelay));
 
@@ -196,24 +198,25 @@ namespace Tetherport
                 _dbManager.SaveRecord(TetherportFormatter.FormatTetherportFileName(player.steamId), player.ToPlayerLocationRecord(), true);
             }
  
-            var portals = _dbManager.LoadRecords<PortalRecord>(PortalFileName);
-            if (portals == null)
+            var portal = _dbManager
+                .LoadRecords<PortalRecord>(PortalFileName)?
+                .FirstOrDefault(record => record.Name == linkId);
+
+            if (portal == null)
             {
-                await _modFramework.MessagePlayer(player.entityId, $"Could not find Tetherport Locations.", 10, MessagerPriority.Red);
+                await _modFramework.MessagePlayer(player.entityId, $"Could not find Tetherport Location.", 10, MessagerPriority.Red);
                 return;
             }
 
-            // Find matching record and teleport player
-            foreach (var portal in portals)
-            {
-                if (string.Equals(portal.Name, linkId))
-                {
-                    //Teleport and inform player
-                    await _modFramework.TeleportPlayer(player.entityId, portal.Playfield, portal.PosX, portal.PosY, portal.PosZ, portal.RotX, portal.RotY, portal.RotZ);
-                    await _modFramework.MessagePlayer(player.entityId, $"Created Tetherport tether! Welcome to {portal.Name}!", 10);
-                    return;
-                }
-            }
+            var coordinates = _targetHelper.GetCoordinates(portal);
+
+            await _modFramework.TeleportPlayer(
+                player.entityId, 
+                portal.Playfield, 
+                coordinates.X, coordinates.Y, coordinates.Z, 
+                portal.RotX, portal.RotY, portal.RotZ);
+
+            await _modFramework.MessagePlayer(player.entityId, $"Created Tetherport tether! Welcome to {portal.Name}!", 10);
         }
     }
 }
